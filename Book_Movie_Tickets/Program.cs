@@ -1,4 +1,4 @@
-using EDN.Models;
+using Book_Movie_Tickets.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

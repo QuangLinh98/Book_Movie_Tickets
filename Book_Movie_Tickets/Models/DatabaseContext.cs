@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EDN.Models
+namespace Book_Movie_Tickets.Models
 {
     public class DatabaseContext :DbContext
     {

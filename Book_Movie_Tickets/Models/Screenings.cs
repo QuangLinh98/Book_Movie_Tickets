@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace EDN.Models
+namespace Book_Movie_Tickets.Models
 {
     public class Screenings
     {

@@ -1,0 +1,31 @@
+﻿@model Book_Movie_Tickets.Models.Customers;
+<div class="row">
+    <h2>Create Form</h2>
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div class="mb-3 mt-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Name" asp-for="name">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="Description">Email:</label>
+            <input type="email" class="form-control"
+                   placeholder="Enter Email" asp-for="email">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="age">Phone:</label>
+            <input type="number" class="form-control"
+                   placeholder="Enter Age" asp-for="phone">
+            <span asp-validation-for="phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="image">ImageFile:</label>
+            <input type="file" class="form-control" name="imageFile">
+            <span asp-validation-for="imageFile" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" asp-action="Index">Back</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

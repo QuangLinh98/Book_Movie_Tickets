@@ -4,7 +4,7 @@
     <form asp-action="Edit" method="POST">
            <input type="hidden"  asp-for="booking_id">
 
-        <div class="mb-3 mt-3">
+        <div class="mb-3 mt-3" >
             <label for="name">Customer Name:</label>
             <select asp-items="@ViewBag.Customers_name" class="form-select"
                     asp-for="customer_id"></select>

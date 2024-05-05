@@ -24,6 +24,8 @@ namespace Book_Movie_Tickets.Controllers
                    
                 .ToListAsync();
 
+         
+
             var CustomerBookingDTOs = bookings.Select(b => new CustomerBookingDTO
             {
                 CustomerBooking_id = b.booking_id,
@@ -43,19 +45,20 @@ namespace Book_Movie_Tickets.Controllers
         public async Task<IActionResult> Create()
         {
 			
-			var listCustomers = await _databaseContext.Customers.ToListAsync();		
-			var listScreening = await _databaseContext.Screenings.ToListAsync();
-			var listMovie = await _databaseContext.Movies.ToListAsync();
+			var listCustomers = await _databaseContext.Customers.ToListAsync();
+            ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
+            ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
+            ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
 
-			
 
-			ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
-			ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
-			ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
+            var listScreening = await _databaseContext.Screenings.ToListAsync();
+            ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "start_time", "screening_id");
+            ViewBag.Screening_end_time = new SelectList(listScreening, "screening_id", "end_time", "screening_id");
 
+
+            var listMovie = await _databaseContext.Movies.ToListAsync();
  			ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
-			ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "start_time", "screening_id");
-			ViewBag.Screening_end_time = new SelectList(listScreening, "screening_id", "end_time", "screening_id");
+		
 
             return View();
         }

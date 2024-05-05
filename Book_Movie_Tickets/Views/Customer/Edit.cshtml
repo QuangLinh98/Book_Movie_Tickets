@@ -1,0 +1,44 @@
+﻿@model Book_Movie_Tickets.Models.Customers;
+<div class="row">
+    <h2>Update customers</h2>
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div class="mb-3 mt-3">
+
+            <input type="hidden" asp-for="customer_id">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Name" asp-for="name">
+            <span asp-validation-for="name" class="text-danger"></span>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="Description">Email:</label>
+            <input type="email" class="form-control"
+                   placeholder="Enter Email" asp-for="email">
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+      
+        <div class="mb-3 mt-3">
+            <label for="age">Phone:</label>
+            <input type="number" class="form-control"
+                   placeholder="Enter Age" asp-for="phone">
+            <span asp-validation-for="phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="image">Image:</label>
+            <input type="file" class="form-control" name="imageFile">
+
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="image">Current image:</label>
+            <input type="hidden" class="form-control" asp-for="imagePath    ">
+            <img src="~/@Model.imagePath" width="100" class="img-thumbnail" />
+            <span asp-validation-for="imageFile" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" asp-action="Customerlist">Back</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

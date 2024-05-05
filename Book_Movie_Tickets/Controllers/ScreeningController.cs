@@ -18,7 +18,7 @@ namespace Book_Movie_Tickets.Controllers
 			_dbContext = dbContext;
 		}
 		// GET: /<controller>/
-		public async Task<IActionResult> Index(string? movieName)
+		public async Task<IActionResult> Index(string? movieName , string searchcustomer)
 		{
 			var screeningsQuery = _dbContext.Screenings
 				.Include(s => s.Theater)
@@ -33,6 +33,8 @@ namespace Book_Movie_Tickets.Controllers
 			{
 				ViewBag.MovieName = "";
 			}
+
+
 			var list = screeningsQuery.Select(s => new ScreeningDTO
 			{
 				Id = s.screening_id,
@@ -67,6 +69,8 @@ namespace Book_Movie_Tickets.Controllers
 
 			ViewBag.listMovieImage = new SelectList(listTheater, "movies_id", "image", "movies_id");
 		}
+
+
 		public async Task<IActionResult> Create()
 		{
 			await SelectLists();

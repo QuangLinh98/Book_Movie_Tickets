@@ -18,7 +18,7 @@ namespace Book_Movie_Tickets.Controllers
 			_dbContext = dbContext;
 		}
 		// GET: /<controller>/
-		public async Task<IActionResult> Index(string? movieName , string searchcustomer)
+		public async Task<IActionResult> Index(string? movieName )
 		{
 			var screeningsQuery = _dbContext.Screenings
 				.Include(s => s.Theater)

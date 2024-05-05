@@ -24,6 +24,7 @@
             <label for="theatername">Number Ticket:</label>
             <input type="number" class="form-control"
                    placeholder="Enter Age" asp-for="number_of_tickets">
+            <span asp-validation-for="number_of_tickets" , class="text-danger">@ViewBag.MessageError </span>
         </div>
 
         <div class="mb-3 mt-3">
@@ -43,6 +44,8 @@
             <select asp-items="@ViewBag.Screening_end_time" class="form-select"
                     asp-for="screening_id"></select>
         </div>
+        
+        <button type="submit" class="btn btn-primary" asp-action="Index">Back</button>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

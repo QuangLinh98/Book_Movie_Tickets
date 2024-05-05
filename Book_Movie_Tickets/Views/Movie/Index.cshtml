@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Book_Movie_Tickets.Models.Movies>
+
+<div class="row">
+    <h2>Movie List</h2>
+    <a asp-action="Create" class="btn btn-primary">Create a new Movie</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Movie Id</th>
+                <th>Movie Title</th>
+                <th>Director</th>
+                <th>Release Date</th>
+                <th>Genre</th>
+                <th>Duration</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.movies_id</td>
+                    <td>@item.title</td>
+                    <td>@item.director</td>
+                    <td>@item.release_date</td>
+                    <td>@item.genre</td>
+                    <td>@item.Duration</td>
+                    @*<td><img src="~/images/@item.ImagePath" width="300" class="img-thumbnail" /></td>*@
+                    <td><img src="~/@item.image" width="200" class="img-thumnail" /></td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.movies_id" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.movies_id" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

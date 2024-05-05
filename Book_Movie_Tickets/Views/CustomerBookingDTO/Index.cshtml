@@ -2,8 +2,38 @@
 
 
 <div class="row">
+@* 
+    <a class="btn btn-success" asp-action="Create" method="POST">Create Ticket</a> *@
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div id="Message" class="alert alert-success">
+        <strong>
+            Success!
+            </strong>@ViewBag.Message
+        </div>
 
-    <a class="btn btn-success" asp-action="Create" method="POST">Create Ticket</a>
+        // SetTime tắt thông báo
+        <script>
+            setTimeout(function () {
+                $('#Message').fadeOut('fast');
+            }, 5000);</script>
+    }
+
+    @*filter*@
+    <div class="row">
+        <form asp-controller="CustomerBookingDTO" asp-action="Index" id="searchForm">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="nameSearch">Search by Customer Name:</label>
+                <div class="input-group">
+                    <input type="text" id="nameSearch" name="nameSearch" class="form-control" value="@ViewBag.CustomerName" placeholder="Enter name" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
             <tr>

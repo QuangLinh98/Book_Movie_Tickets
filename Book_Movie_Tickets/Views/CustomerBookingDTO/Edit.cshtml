@@ -1,6 +1,6 @@
 ﻿@model Bookings
 <div class="row">
-    <h2>Form create booking</h2>
+    <h2> Edit Form Booking Ticket</h2>
     <form asp-action="Edit" method="POST">
            <input type="hidden"  asp-for="booking_id">
 
@@ -46,5 +46,6 @@
                     asp-for="screening_id"></select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" asp-action="Index">Back</button>
     </form>
 </div>

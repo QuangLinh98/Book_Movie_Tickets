@@ -15,16 +15,27 @@ namespace Book_Movie_Tickets.Controllers
             _databaseContext = databaseContext;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? nameSearch)
         {
-            var bookings = await _databaseContext.bookings
+            var bookingTicket = _databaseContext.bookings
                 .Include(b => b.Customer)
                 .Include(b => b.Screening)
-                    .ThenInclude(s => s.Movie)
-                   
-                .ToListAsync();
+                .ThenInclude(s => s.Movie)
+                .AsQueryable();
 
-         
+            if (!string.IsNullOrEmpty(nameSearch))
+            {
+                // Thực hiện tìm kiếm theo tên khách hàng
+                bookingTicket = bookingTicket.Where(b => b.Customer.name.Contains(nameSearch));
+                ViewBag.CustomerName = nameSearch;
+            }
+
+
+            var bookings = await bookingTicket.ToListAsync();
+
+            //Show message on the view 
+            var message = TempData["success"] as string;
+            ViewBag.Message = message;
 
             var CustomerBookingDTOs = bookings.Select(b => new CustomerBookingDTO
             {
@@ -34,18 +45,17 @@ namespace Book_Movie_Tickets.Controllers
                 _phone = b.Customer.phone,
                 _number_ticket = b.number_of_tickets,
                 _Film = b.Screening.Movie.title,
-				_start_time = b.Screening.start_time,
+                _start_time = b.Screening.start_time,
                 _end_time = b.Screening.end_time,
-				_movie_Id = b.Screening.movie_id
+                _movie_Id = b.Screening.movie_id
             }).ToList();
 
             return View(CustomerBookingDTOs);
         }
 
-        public async Task<IActionResult> Create()
+        private async Task SelecView()
         {
-			
-			var listCustomers = await _databaseContext.Customers.ToListAsync();
+            var listCustomers = await _databaseContext.Customers.ToListAsync();
             ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
             ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
             ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
@@ -57,39 +67,36 @@ namespace Book_Movie_Tickets.Controllers
 
 
             var listMovie = await _databaseContext.Movies.ToListAsync();
- 			ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
-		
+            ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
+        }
 
+        public async Task<IActionResult> Create()
+        {
+
+            await SelecView();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult>Create(Bookings bookings)
+        public async Task<IActionResult> Create(Bookings bookings, int numberTicket)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || bookings.number_of_tickets == null || bookings.number_of_tickets == 0)
             {
-				var listCustomers = await _databaseContext.Customers.ToListAsync();
-				var listScreening = await _databaseContext.Screenings.ToListAsync();
-				var listMovie = await _databaseContext.Movies.ToListAsync();
-
-				ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
-				ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
-				ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
-				ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
-				ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "start_time", "screening_id");
-				ViewBag.Screening_end_time = new SelectList(listScreening, "screening_id", "end_time", "screening_id");
-
-				return View();
+                await SelecView();
+                ViewBag.MessageError = "Please enter a valid number of tickets (greater than 0).";
+                return View();
             }
             else
             {
                 await _databaseContext.bookings.AddAsync(bookings);
                 await _databaseContext.SaveChangesAsync();
+                TempData["success"] = "Booking ticket successfully!";
                 return RedirectToAction("Index");
             }
         }
 
-        public async Task<IActionResult>Delete(int id)
+
+        public async Task<IActionResult> Delete(int id)
         {
             var booking = await _databaseContext.bookings.FindAsync(id);
             if (booking == null)
@@ -98,10 +105,11 @@ namespace Book_Movie_Tickets.Controllers
             }
             _databaseContext.bookings.Remove(booking);
             await _databaseContext.SaveChangesAsync();
+            TempData["success"] = "Delete successfully!";
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult>Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var booking = await _databaseContext.bookings.FindAsync(id);
 
@@ -109,22 +117,16 @@ namespace Book_Movie_Tickets.Controllers
             {
                 return BadRequest("Booking null");
             }
-            var listCustomers = await _databaseContext.Customers.ToListAsync();
-            var listScreening = await _databaseContext.Screenings.ToListAsync();
-            var listMovie = await _databaseContext.Movies.ToListAsync();
+            else
+            {
+                await SelecView();
+                return View(booking);
+            }
 
-            ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
-            ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
-            ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
-            ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
-            ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "start_time", "screening_id");
-            ViewBag.Screening_end_time = new SelectList(listScreening, "screening_id", "end_time", "screening_id");
-
-            return View(booking);
         }
 
         [HttpPost]
-        public async Task<IActionResult>Edit(Bookings bookings)
+        public async Task<IActionResult> Edit(Bookings bookings)
         {
             if (!ModelState.IsValid)
             {
@@ -132,19 +134,10 @@ namespace Book_Movie_Tickets.Controllers
             }
             else
             {
-                var listCustomers = await _databaseContext.Customers.ToListAsync();
-                var listScreening = await _databaseContext.Screenings.ToListAsync();
-                var listMovie = await _databaseContext.Movies.ToListAsync();
-
-                ViewBag.Movie_name = new SelectList(listMovie, "movies_id", "title", "movies_id");
-                ViewBag.Customers_name = new SelectList(listCustomers, "customer_id", "name", "customer_id");
-                ViewBag.Customers_email = new SelectList(listCustomers, "customer_id", "email", "customer_id");
-                ViewBag.Customers_phone = new SelectList(listCustomers, "customer_id", "phone", "customer_id");
-                ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "start_time", "screening_id");
-                ViewBag.Screening_start_time = new SelectList(listScreening, "screening_id", "end_time", "screening_id");
-
+                await SelecView();
                 _databaseContext.bookings.Update(bookings);
                 await _databaseContext.SaveChangesAsync();
+                TempData["success"] = "Update successfully!";
                 return RedirectToAction("Index");
             }
         }

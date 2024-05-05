@@ -1,0 +1,54 @@
+﻿@model Book_Movie_Tickets.Models.Movies
+
+<div class="row">
+    <h2>Movie form Edit</h2>
+
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <input type="hidden" asp-for="movies_id">
+
+        <div class="mb-3 mt-3">
+            <label for="name">Movie Title:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Movie Title" asp-for="title">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="Description">Director:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Director" asp-for="director">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="Description">Release Date:</label>
+            <input type="date" class="form-control"
+                   placeholder="Enter Release Date" asp-for="release_date">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="Description">Genre:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Genre" asp-for="genre">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="Description">Duration:</label>
+            <input type="text" class="form-control"
+                   placeholder="Enter Duration" asp-for="Duration">
+        </div>
+
+
+
+        <div class="mb-3 mt-3">
+            <label for="image">Image:</label>
+            <input type="file" class="form-control"
+                   placeholder="Enter ImagePath" name="ImageFile">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="image">Current Image:</label>
+            <input type="hidden" asp-for="image">
+            <img src="~/@Model.image" width="200" class="img-thumbnail" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" asp-action="Index">Back</button>
+    </form>
+</div>

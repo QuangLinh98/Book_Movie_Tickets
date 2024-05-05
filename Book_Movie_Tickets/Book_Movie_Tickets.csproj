@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\image\" />
+    <Folder Include="wwwroot\LayoutAdmin\assets\images\dashboard\" />
+    <Folder Include="wwwroot\LayoutAdmin\assets\images\faces-clipart\" />
   </ItemGroup>
 
 </Project>

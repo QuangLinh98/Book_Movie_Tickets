@@ -84,6 +84,9 @@ namespace Book_Movie_Tickets.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movies_id"));
 
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("director")
                         .HasColumnType("nvarchar(max)");
 

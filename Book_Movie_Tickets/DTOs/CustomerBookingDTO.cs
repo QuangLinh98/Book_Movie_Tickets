@@ -12,6 +12,9 @@ namespace Book_Movie_Tickets.DTOs
         public string? _email { get; set; }
         public string? _phone { get; set; }
         public int _movie_Id { get; set; }
+
+        [Required]
+     
         public int _number_ticket { get; set; }
         public string? _Film { get; set; }
         public DateTime _start_time { get; set; }

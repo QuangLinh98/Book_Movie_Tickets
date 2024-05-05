@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Book_Movie_Tickets.DTOs.CustomerBookingDTO>
+
+
+<div class="row">
+
+    <a class="btn btn-success" asp-action="Create">Create Ticket</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer_Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Number Ticket</th>
+                <th>Movie</th>
+                <th>Start_Time</th>
+                <th>End_Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CustomerBooking_id</td>
+                    <td>@item._customerName</td>
+                    <td>@item._email</td>
+                    <td>@item._phone</td>
+                    <td>@item._number_ticket</td>
+                    <td>@item._Film</td>
+                    <td>@item._start_time</td>
+                    <td>@item._end_time</td>
+
+                    <td>
+                        <a class="btn btn-primary" type="submit" asp-route-id="@item.CustomerBooking_id" asp-action="Edit">Update</a>
+                        <a class="btn btn-primary" type="submit" asp-route-id="@item.CustomerBooking_id" asp-action="Delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -23,6 +23,7 @@ namespace Book_Movie_Tickets.Controllers
 
         public IActionResult Create()
         {
+           /* ViewData["Customer"] = new Book_Movie_Tickets.Models.Customers();*/
             return View();
         }
 
@@ -87,6 +88,11 @@ namespace Book_Movie_Tickets.Controllers
         {
             var customer = await _databaseContext.Customers.FirstOrDefaultAsync(c => c.customer_id == id);
             return View(customer);
+        }
+
+        public IActionResult CreateTicket()
+        {
+            return RedirectToAction("create", "CustomerBookingDTO");
         }
     }
 }

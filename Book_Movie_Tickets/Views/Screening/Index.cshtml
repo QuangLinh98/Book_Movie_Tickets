@@ -1,0 +1,87 @@
+﻿
+@model IEnumerable<Book_Movie_Tickets.DTOs.ScreeningDTO>
+<div class="row">
+    <a class="btn btn-primary" asp-action="Create">Create new Screening</a>
+    <h2>Screening  List</h2>
+
+    @*validate*@
+    <div class="row">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div id="deleteSuccessMessage" class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+
+            <script>setTimeout(function () {
+                    $('#deleteSuccessMessage').fadeOut('fast');
+                }, 5000);</script>
+        }
+        @if (TempData["DeleteSuccessMessage"] != null)
+        {
+            <div id="deleteSuccessMessage" class="alert alert-danger" role="alert">
+                @TempData["DeleteSuccessMessage"]
+            </div>
+
+            <script>setTimeout(function () {
+                    $('#deleteSuccessMessage').fadeOut('fast');
+                }, 5000);</script>
+        }
+    </div>
+    @*filter*@
+    <div class="row">
+        <form asp-controller="Screening" asp-action="Index" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="movieName">Search by Movie Name:</label>
+                <div class="input-group">
+                    <input type="text" id="movieName" name="movieName" class="form-control" value="@ViewBag.MovieName" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Film</th>
+                    <th>Genres</th>
+                    <th>Name Theater</th>
+                    <th>Location</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><img src="@item._image" alt="Image" style="max-width: 100px; max-height: 100px;" /></td>
+                        <td>@item._title</td>
+                        <td>@item._genre</td>
+                        <td>@item._nameTheater</td>
+                        <td>@item._location</td>
+                        <td>@item._start_time</td>
+                        <td>@item._end_time</td>
+                        <td>
+                            <a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Edit">Edit</a>
+                            <a class="btn btn-danger" asp-route-id="@item.Id" asp-action="Delete">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

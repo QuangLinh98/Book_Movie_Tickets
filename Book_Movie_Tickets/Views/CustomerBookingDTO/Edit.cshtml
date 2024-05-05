@@ -1,0 +1,50 @@
+﻿@model Bookings
+<div class="row">
+    <h2>Form create booking</h2>
+    <form asp-action="Edit" method="POST">
+           <input type="hidden"  asp-for="booking_id">
+
+        <div class="mb-3 mt-3">
+            <label for="name">Customer Name:</label>
+            <select asp-items="@ViewBag.Customers_name" class="form-select"
+                    asp-for="customer_id"></select>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="Description">Email:</label>
+            <select asp-items="@ViewBag.Customers_email" class="form-select"
+                    asp-for="customer_id"></select>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="age">Phone:</label>
+            <select asp-items="@ViewBag.Customers_phone" class="form-select"
+                    asp-for="customer_id"></select>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="theatername">Number Ticket:</label>
+            <input type="number" class="form-control"
+                   placeholder="Enter Age" asp-for="number_of_tickets">
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="start">Movie:</label>
+            <select asp-items="@ViewBag.Movie_name" class="form-select"
+                    name="_movie_Id"></select>
+
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="start">Start time:</label>
+            <select asp-items="@ViewBag.Screening_start_time" class="form-select"
+                    asp-for="screening_id"></select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="end">End time:</label>
+            <select asp-items="@ViewBag.Screening_end_time" class="form-select"
+                    asp-for="screening_id"></select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

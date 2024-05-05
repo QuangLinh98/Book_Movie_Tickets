@@ -1,0 +1,39 @@
+﻿@model Screenings
+<div class="row">
+    <h2>Edit Screening</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="screening_id" />
+
+        <div class="mb-3 mt-3">
+            <label for="movie_id">Movie:</label>
+            <select asp-items="@ViewBag.listMovieTitle" class="form-select"
+                    asp-for="movie_id"></select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="genre_id">Genre:</label>
+            <select asp-items="@ViewBag.listMovieGenre" class="form-select"
+                    asp-for="movie_id"></select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="theater_id">Theater:</label>
+            <select asp-items="@ViewBag.listTheaterName" class="form-select"
+                    asp-for="theater_id"></select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="theater_id">Theater:</label>
+            <select asp-items="@ViewBag.listTheaterLocation" class="form-select"
+                    asp-for="theater_id"></select>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="start_time">Start Time:</label>
+            <input type="time" class="form-control" asp-for="start_time" />
+            <span asp-validation-for="start_time" class="text-danger"></span>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="end_time">End Time:</label>
+            <input type="time" class="form-control" asp-for="end_time" />
+            <span asp-validation-for="end_time" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

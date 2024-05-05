@@ -195,6 +195,8 @@
 							<i class="mdi mdi-home menu-icon"></i>
 						</a>
 					</li>
+					
+
 					<li class="nav-item">
 						<a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
 							<span class="menu-title">Customer</span>
@@ -206,10 +208,30 @@
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">Customer list</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="CustomerBookingDTO" asp-action="Index">Customer booking ticket</a>
+								</li>
 							</ul>
 						</div>
 					</li>
 
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+							<span class="menu-title">Screening</span>
+							<i class="menu-arrow"></i>
+							<i class="mdi mdi-medical-bag menu-icon"></i>
+						</a>
+						<div class="collapse" id="general-pages">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Screening" asp-action="Index">Screening list</a>
+								</li>
+								
+							</ul>
+						</div>
+					</li>
+
+			
 				</ul>
 			</nav>
 			<!-- partial -->
